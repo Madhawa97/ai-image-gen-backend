@@ -1,9 +1,9 @@
 import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
-import { alter } from './alter.js';
-import { edit } from './edit.js';
-import { create } from './create.js';
+import { alter } from './functions/alter.js';
+import { edit } from './functions/edit.js';
+import { create } from './functions/create.js';
 
 const app = express();
 app.use(bodyParser.json());
