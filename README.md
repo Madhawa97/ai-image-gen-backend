@@ -1,4 +1,6 @@
-# ImageGen-viaOpenAi
+# AI-Image-Generator -via OpenAI API
+
+[Frontend for this application](https://github.com/Madhawa97/ai-image-gen-frontend)
 
 ## To Run Locally
 
