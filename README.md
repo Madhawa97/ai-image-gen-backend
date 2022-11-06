@@ -13,6 +13,7 @@
 API_KEY="YOUR_API_KEY"
 USER_NAME="YOUR_USER_NAME"
 ```
+- run using `npm start`
 
 ## Resources
 
