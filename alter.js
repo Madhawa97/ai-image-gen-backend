@@ -10,23 +10,26 @@ const configuration = new Configuration({
 
 const openai = new OpenAIApi(configuration);
 
-const src = './img/1667733374415.png';                                // path to existing image
-                                                                      // image must be a valid PNG file, less than 4MB, and square.
+export const alter = async () => {
+    const src = './img/1667733374415.png';                                // path to existing image
+    // image must be a valid PNG file, less than 4MB, and square.
 
-const result = await openai.createImageVariation(
-    createReadStream(`${src}`),                       // opening the file
-    1,
-    "1024x1024"
-);
+    const result = await openai.createImageVariation(
+        createReadStream(`${src}`),                       // opening the file
+        1,
+        "1024x1024"
+    );
 
-const url = result.data.data[0].url;
-console.log(url);
+    const url = result.data.data[0].url;
+    console.log(url);
 
 
-// save the image to disk
+    // save the image to disk
 
-const imageResult = await fetch(url);
-const blob = await imageResult.blob();
-const buffer = Buffer.from(await blob.arrayBuffer());   // turn the blob into a buffer
-writeFileSync(`./img/${Date.now()}.png`, buffer);
+    const imageResult = await fetch(url);
+    const blob = await imageResult.blob();
+    const buffer = Buffer.from(await blob.arrayBuffer());   // turn the blob into a buffer
+    writeFileSync(`./img/${Date.now()}.png`, buffer);
 
+    return url;
+}

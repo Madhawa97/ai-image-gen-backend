@@ -10,26 +10,31 @@ const configuration = new Configuration({
 
 const openai = new OpenAIApi(configuration);
 
-const prompt = 'a flying sauser landing on a airport at afternoon'
-const src = './img/1667733374415.png';      // image without mask
-const mask = './img/1667733510714.png';     // transparent, masked image
+export const edit = async () => {
 
-const result = openai.createImageEdit(
-    createReadStream(src),
-    createReadStream(mask),
-    prompt,
-    1,
-    "1024x1024"
-);
+    const prompt = 'a flying sauser landing on a airport at afternoon'
+    const src = './img/1667733374415.png';      // image without mask
+    const mask = './img/1667733510714.png';     // transparent, masked image
 
-const url = result.data.data[0].url;
-console.log(url);
+    const result = openai.createImageEdit(
+        createReadStream(src),
+        createReadStream(mask),
+        prompt,
+        1,
+        "1024x1024"
+    );
+
+    const url = result.data.data[0].url;
+    console.log(url);
 
 
-// save the image to disk
+    // save the image to disk
 
-const imageResult = await fetch(url);
-const blob = await imageResult.blob();
-const buffer = Buffer.from(await blob.arrayBuffer());   // turn the blob into a buffer
-writeFileSync(`./img/${Date.now()}.png`, buffer);
+    const imageResult = await fetch(url);
+    const blob = await imageResult.blob();
+    const buffer = Buffer.from(await blob.arrayBuffer());   // turn the blob into a buffer
+    writeFileSync(`./img/${Date.now()}.png`, buffer);
+
+    return url;
+}
 

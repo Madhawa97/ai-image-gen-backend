@@ -10,22 +10,24 @@ const configuration = new Configuration({
 
 const openai = new OpenAIApi(configuration);
 
-const prompt = 'scary alien hiding in a nebula in space';
+export const create = async (prompt) => {
 
-const result = await openai.createImage({
-    prompt,
-    n: 1, // no of images
-    size: "1024x1024",
-    user: process.env.USER_NAME
-});
+    const result = await openai.createImage({
+        prompt,
+        n: 1, // no of images
+        size: "1024x1024",
+        user: process.env.USER_NAME
+    });
 
-const url = result.data.data[0].url;
-console.log(url);
+    const url = result.data.data[0].url;
+    console.log(url);
 
-// save the image to disk
+    // save the image to disk
 
-const imageResult = await fetch(url);
-const blob = await imageResult.blob();
-const buffer = Buffer.from( await blob.arrayBuffer()); // turn the blob into a buffer
-writeFileSync(`./img/${Date.now()}.png`, buffer);
+    const imageResult = await fetch(url);
+    const blob = await imageResult.blob();
+    const buffer = Buffer.from(await blob.arrayBuffer()); // turn the blob into a buffer
+    writeFileSync(`./img/${Date.now()}.png`, buffer);
 
+    return url;
+}
